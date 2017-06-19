@@ -58,14 +58,14 @@ body {
     padding: 10px 0;
 }
 .filter-section{
-    width: 30px;
+    width: 250px;
     background: #fff;
     z-index: 10;
     border: 1px solid;
     position: absolute;
-    cursor: pointer;
+    margin-left: -220px;
 }
-.filter-title{
+.filter-label{
     transform: rotate(-90deg);
     text-align: center;
     position: relative;
@@ -73,4 +73,27 @@ body {
 }
 #ui-datepicker-div{
    z-index: 12 !important;
+}
+.filter-container{
+    width: 220px;
+    display: inline-block;
+}
+.filter-label-outer{
+    width: 25px;
+    height: inherit;
+    cursor: pointer;
+    display: inline-block;
+}
+.filter-header-container{
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.filter-nav-icon{
+    display: inline-block;
+    height: 15px;
+    width: 16px;
+    background: url(../images/chevron_right.png) no-repeat;
+}
+.filter-title{
+    display: inline-block;
 }
