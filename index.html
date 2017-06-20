@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<div class="span4">
-		<button class="btn font-20">
+		<button class="btn font-20" id="addAppointment">
 			+
 		</button>
 		<button class="btn">
@@ -64,3 +64,49 @@
 </div>
 
 <div id='calendar'></div>
+
+<!-- new appointment modal -->
+<div id="appointmentModal" style="display:none">
+    <form id="form" >
+
+        <div>
+        	From
+        	<input type="text" class="custom-datepicker from-datepicker-input" id="fromDate" tabindex="-1">
+	        	<img src="/WidgetCalendar/images/up-arrow.png"  class="from-up-arrow" />
+				<img src="/WidgetCalendar/images/down-arrow.png" class="from-down-arrow" />
+        	<input type="text" class="custom-timepicker from-timepicker-input" id="fromTime" tabindex="-1">
+	        	<img src="/WidgetCalendar/images/up-arrow.png"  class="up-arrow" />
+				<img src="/WidgetCalendar/images/down-arrow.png" class="down-arrow" />
+        </div>
+        <div>
+        	<span class=textAlign>To</span>
+        	<input type="text" class="custom-datepicker to-datepicker-input" id="toDate" tabindex="-1">
+        		<img src="/WidgetCalendar/images/up-arrow.png"  class="to-up-arrow" />
+				<img src="/WidgetCalendar/images/down-arrow.png" class="to-down-arrow" />
+        	<input type="text" class="custom-timepicker to-timepicker-input" id="toTime" tabindex="-1">
+        		<img src="/WidgetCalendar/images/up-arrow.png"  class="up-arrow" />
+				<img src="/WidgetCalendar/images/down-arrow.png" class="down-arrow" />
+        </div>
+        <div>Type
+        	<select tabindex="-1" id="type">
+        		<option value="Initial assessment">Initial assessment</option>
+        	</select>
+        </div>
+        <div>
+        	Capacity of appoinments in slot
+        	<input class="custom-input" type="text"  id="capacity" tabindex="-1"/>
+        </div>
+        <div>Staff
+        	<select tabindex="-1" id="staff">
+        		<option value="Unassigned">Unassigned</option>
+        	</select>
+        </div>
+         <div>Location
+        	<input type="text" id="location" tabindex="-1" />
+        </div>
+        <div>Notes
+        <textarea rows="4" cols="50" id="notes" tabindex="-1"></textarea>
+        </div>
+        <button class="btn-modal" id="save" tabindex= "-1">Save</button>
+    </form>
+</div>

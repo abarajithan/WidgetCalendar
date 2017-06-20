@@ -58,21 +58,70 @@ body {
     padding: 10px 0;
 }
 .filter-section{
-    width: 250px;
+    width: 30px;
     background: #fff;
     z-index: 10;
     border: 1px solid;
     position: absolute;
-    margin-left: -220px;
+    cursor: pointer;
 }
-.filter-label{
+.filter-title{
     transform: rotate(-90deg);
     text-align: center;
     position: relative;
     top: 50%;
 }
 #ui-datepicker-div{
-   z-index: 12 !important;
+   z-index: 9000 !important;
+   width: 17em !important; 
+   padding: .2em .2em 0 !important;
+}
+.ui-widget-header {
+    border: none !important;
+    background: none !important;
+    border-bottom: 1px solid #DCDCDC !important;
+    border-radius: 1px;
+    
+}
+.ui-dialog .ui-dialog-buttonpane{
+    border-width: 0 !important;
+}
+div.ui-widget{
+    width: 350px !important;
+
+}
+/*.ui-button{
+    margin-right: 230px !important;
+}*/
+
+.custom-datepicker{
+    width: 103px;
+    
+}
+.custom-timepicker{
+    width: 103px;
+    margin-left: -24px;
+    
+}
+/*.custom-toggle{
+    width: 10px;
+}*/
+.textAlign{
+    padding-right: 22px;
+}
+.custom-input{
+    width: 30px;
+}
+.up-arrow, .from-up-arrow, .to-up-arrow{
+    position: relative;
+    top: -10px;
+}
+.down-arrow, .from-down-arrow, .to-down-arrow{
+    position: relative;
+    right: 21px;
+}
+.btn-modal{
+    background: none;
 }
 .filter-container{
     width: 220px;
