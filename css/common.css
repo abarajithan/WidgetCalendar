@@ -23,3 +23,6 @@
 .cursor{
 	cursor: pointer;
 }
+input[type="checkbox"] {
+	margin: 0 5px 0 0;
+}

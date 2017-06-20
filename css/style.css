@@ -82,11 +82,11 @@ body {
     width: 25px;
     height: inherit;
     cursor: pointer;
-    display: inline-block;
+    display: inline;
+    float: right;
 }
 .filter-header-container{
     padding: 5px 10px;
-    cursor: pointer;
 }
 .filter-nav-icon{
     display: inline-block;
@@ -96,4 +96,8 @@ body {
 }
 .filter-title{
     display: inline-block;
+}
+.option-header-container {
+    padding: 3px;
+    margin-left: 20px;
 }
