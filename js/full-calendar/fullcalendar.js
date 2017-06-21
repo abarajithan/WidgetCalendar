@@ -135,7 +135,8 @@ $.fn.fullCalendar = function(options) {
 				}
 			}
 			if(res == "resourceView" && $("div.fc-view.fc-view-resourceDay").length){
-				calendar.changeView("resourceDay")			
+				$('div.fc-view.fc-view-resourceDay').remove();
+				calendar.changeView("addResourceDay")			
 			}
 		});
 
@@ -320,7 +321,7 @@ function Calendar(element, options, eventSources, resourceSources) {
 	// TODO: improve view switching (still weird transition in IE, and FF has whiteout problem)
 	
 	function changeView(newViewName) {
-		if (!currentView || newViewName != currentView.name || newViewName == "resourceDay") {
+		if (!currentView || newViewName != currentView.name || newViewName == "addResourceDay") {
 			ignoreWindowResize++; // because setMinHeight might change the height before render (and subsequently setSize) is reached
 
 			unselect();
@@ -337,8 +338,10 @@ function Calendar(element, options, eventSources, resourceSources) {
 			}
 			content.css('overflow', 'hidden');
 			
-			if(newViewName == "resourceDay")
+			if(newViewName == "addResourceDay"){
+				newViewName = "resourceDay";
 				delete viewInstances[newViewName];
+			}
 			currentView = viewInstances[newViewName];
 			if (currentView) {
 				currentView.element.show();

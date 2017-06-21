@@ -54,7 +54,13 @@ body {
     background-color:#777;
     color:#fff;
 }
-.fc-fri.fc-widget-header {
+.fc-sun.fc-widget-header,
+.fc-mon.fc-widget-header,
+.fc-tue.fc-widget-header,
+.fc-wed.fc-widget-header,
+.fc-thu.fc-widget-header,
+.fc-fri.fc-widget-header,
+.fc-sat.fc-widget-header {
     padding: 10px 0;
 }
 .filter-section{
