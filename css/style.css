@@ -86,13 +86,6 @@ body {
 .ui-dialog .ui-dialog-buttonpane{
     border-width: 0 !important;
 }
-div.ui-widget{
-    width: 350px !important;
-
-}
-/*.ui-button{
-    margin-right: 230px !important;
-}*/
 
 .custom-datepicker{
     width: 103px;
@@ -118,7 +111,7 @@ div.ui-widget{
 }
 .down-arrow, .from-down-arrow, .to-down-arrow{
     position: relative;
-    right: 21px;
+    right: 20px;
 }
 .btn-modal{
     background: none;
@@ -162,4 +155,21 @@ div.ui-widget{
 .option-header-container {
     padding: 3px;
     margin-left: 20px;
+}
+.ui-timepicker-container.ui-timepicker-standard{
+    height: 200px !important;
+    width: 190px !important;
+    position: absolute;
+    overflow-x: hidden;
+    z-index: 1 !important;
+    border: 1px solid rgb(221, 221, 221);
+}
+div.ui-widget{
+    width: 350px !important;
+}
+.ui-timepicker.ui-widget.ui-widget-content.ui-menu.ui-corner-all,.ui-timepicker .ui-timepicker-viewport{
+    width: 170px !important;
+}
+.ui-timepicker-viewport .ui-menu-item{
+    width: 145px !important;
 }
