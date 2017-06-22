@@ -179,3 +179,6 @@ div.ui-widget{
 .ui-timepicker-viewport .ui-menu-item{
     width: 145px !important;
 }
+.fc-agenda-slots tr {
+    height: 100px;
+}
