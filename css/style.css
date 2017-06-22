@@ -1,4 +1,6 @@
-
+body{
+    overflow-x: hidden;
+}
 #calendar
 {
 	margin: auto;
@@ -181,4 +183,18 @@ div.ui-widget{
 }
 .fc-agenda-slots td div {
     height: 80px;
+}
+.sof-pane{
+    width: 250px;
+    height: 200px;
+    margin-right: -260px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    right: 0;
+    position: absolute;
+    z-index: 3;
+    background: #fff; 
+}
+.sof-pane.open{
+    display: block;
 }
