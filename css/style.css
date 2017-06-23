@@ -184,7 +184,7 @@ div.ui-widget{
 .fc-agenda-slots td div {
     height: 80px;
 }
-.sof-pane{
+.sof-pane,.ta-pane{
     width: 250px;
     height: 200px;
     margin-right: -260px;
@@ -195,6 +195,6 @@ div.ui-widget{
     z-index: 3;
     background: #fff; 
 }
-.sof-pane.open{
+.sof-pane.open,.ta-pane.open{
     display: block;
 }
