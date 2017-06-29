@@ -66,12 +66,12 @@ body {
     padding: 10px 0;
 }
 .filter-section{
-    width: 250px;
+    width: 300px;
     background: #fff;
     z-index: 10;
     border: 1px solid;
     position: absolute;
-    margin-left: -225px;
+    margin-left: -275px;
 }
 .filter-label{
     transform: rotate(-90deg);
@@ -125,7 +125,7 @@ body {
     background: none;
 }
 .filter-container{
-    width: 220px;
+    width:calc(100% - 26px);
     display: inline-block;
 }
 .filter-label-outer{
@@ -136,6 +136,10 @@ body {
     float: right;
     border-left: 1px solid #ddd;
 }
+.filter-header{
+    text-transform: capitalize;
+
+}
 .filter-header-container{
     padding: 5px 10px;
 }
@@ -144,6 +148,7 @@ body {
     height: 15px;
     width: 16px;
     background: url(../images/chevron_right.png) no-repeat;
+    vertical-align: text-bottom;
 }
 .filter-nav-icon.open{
    background: url(../images/chevron_down.png) no-repeat; 
