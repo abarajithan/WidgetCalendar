@@ -19,6 +19,12 @@
 .padding-tb-m{
     padding: 20px 0;
 }
+.padding-xs{
+	padding: 10px;
+}
+.padding-m{
+	padding: 20px;
+}
 .padding-left-m{
     padding-left : 20px;
 }
@@ -27,6 +33,9 @@
 }
 .padding-left-xl{
     padding-left : 30px;
+}
+.padding-right-xs{
+	padding-right: 10px;
 }
 .padding-right-m{
     padding-right : 20px;

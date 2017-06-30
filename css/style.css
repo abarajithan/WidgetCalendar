@@ -207,3 +207,15 @@ div.ui-widget{
 .sof-pane.open,.ta-pane.open{
     display: block;
 }
+.teacher-container{
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0px 2px 2px #ddd;
+}
+.subject-identifier{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin:0 3px;
+}
