@@ -3402,7 +3402,7 @@ function ResourceView(element, calendar, viewName) {
     }
 	
 
-    function renderSlotOverlay(overlayStart, overlayEnd) {
+    function renderSlotOverlay(overlayStart, overlayEnd,cell) {
         var dayStart = cloneDate(t.visStart);
         var dayEnd = addDays(cloneDate(dayStart), 1);
         for (var i=0; i<colCnt; i++) {
@@ -3410,7 +3410,7 @@ function ResourceView(element, calendar, viewName) {
             var stretchEnd = new Date(Math.min(dayEnd, overlayEnd));
             if (stretchStart < stretchEnd) {
                 var col = i*dis+dit;
-                var rect = coordinateGrid.rect(0, col, 0, col, slotContent); // only use it for horizontal coords
+                var rect = coordinateGrid.rect(0, cell == undefined ? col : cell.col , 0, cell == undefined ? col : cell.col, slotContent); // only use it for horizontal coords
                 var top = timePosition(dayStart, stretchStart);
                 var bottom = timePosition(dayStart, stretchEnd);
                 rect.top = top;
@@ -3736,7 +3736,7 @@ function ResourceView(element, calendar, viewName) {
                 }else{
                     var d1 = cellDate(cell);
                     var d2 = addMinutes(cloneDate(d1), opt('defaultEventMinutes'));
-                    renderSlotOverlay(d1, d2);
+                    renderSlotOverlay(d1, d2,cell);
                 }
             }
         }, ev);
