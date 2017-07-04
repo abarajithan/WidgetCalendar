@@ -4080,7 +4080,7 @@ function ResourceEventRenderer() {
         "</div>" +
         "<div class='fc-event-content'>" +
         "<div class='fc-event-title'>" +
-        htmlEscape(event.title) +
+        event.title+
         "</div>" +
         "</div>" +
         "<div class='fc-event-bg'></div>" +
@@ -5570,7 +5570,7 @@ function AgendaEventRenderer() {
 			"</div>" +
 			"<div class='fc-event-content'>" +
 			"<div class='fc-event-title'>" +
-			htmlEscape(event.title) +
+			 event.title +
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-bg'></div>" +
@@ -6340,7 +6340,7 @@ function DayEventRenderer() {
                 "</span>";
             }
             html +=
-            "<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
+            "<span class='fc-event-title'>" + event.title + "</span>" +
             "</div>";
             if (seg.isEnd && isEventResizable(event)) {
                 html +=
