@@ -194,7 +194,6 @@ div.ui-widget{
     height: 200px;
     margin-right: -260px;
     border: 1px solid #ddd;
-    padding: 5px;
     right: 0;
     position: absolute;
     z-index: 3;
@@ -206,4 +205,27 @@ div.ui-widget{
 
 .fc-event-title, .fc-event-time{
     text-align: center;
+}
+.teacher-container{
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0px 2px 2px #ddd;
+}
+.subject-identifier{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin:0 3px;
+}
+.ta-header,.sof-header{
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 38px;
+}
+.teacher-block{
+    padding: 10px 10px 0px;
+}
+.student-overflow,.teacher-availability{
+    border: 1px solid #ccc;
 }

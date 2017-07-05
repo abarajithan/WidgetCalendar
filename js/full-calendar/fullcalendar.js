@@ -3747,7 +3747,7 @@ function ResourceView(element, calendar, viewName) {
         var cell = hoverListener.stop();
         clearOverlays();
         if (cell) {
-            trigger('drop', _dragElement, cellDate(cell), cellIsAllDay(cell), ev, ui);
+            trigger('drop', _dragElement, cellDate(cell), cellIsAllDay(cell), ev, ui,resources[cell.col]);
         }
     }
 
@@ -4461,7 +4461,7 @@ setDefaults({
 	allDayText: 'all-day',
 	firstHour: 6,
 	slotMinutes: 30,
-	defaultEventMinutes: 120,
+	defaultEventMinutes: 60,
 	axisFormat: 'h(:mm)tt',
 	timeFormat: {
 		agenda: 'h:mm{ - h:mm}'
