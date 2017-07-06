@@ -13,6 +13,9 @@
 .padding-lr-xxs{
     padding: 0 5px;
 }
+.padding-tb-xs{
+	padding: 10px 0;
+}
 .padding-tb-s{
     padding: 15px 0;
 }
