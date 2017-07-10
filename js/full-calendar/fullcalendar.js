@@ -1266,6 +1266,7 @@ function ResourceManager(options) {
     // exports
     t.fetchResources = fetchResources;
     t.addResource = addResource;
+    t.resources = resources;
     // local
     var sources = [];  // source array
     var cache;  // cached resources
@@ -1276,6 +1277,15 @@ function ResourceManager(options) {
 
     function addResource(resourceObj)
     {
+    	_addResourceSources(resourceObj);
+    	cache = undefined;
+    	return "resourceView";
+    }
+
+
+    function resources(resourceObj)
+    {
+    	sources = [];
     	_addResourceSources(resourceObj);
     	cache = undefined;
     	return "resourceView";
