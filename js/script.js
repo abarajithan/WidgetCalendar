@@ -594,7 +594,6 @@ var teacherAvailability =
   ];
 
 
-
 var filterObject = {
 	// location: centerAvailable,
 	time: time,
@@ -604,6 +603,17 @@ var filterObject = {
 	subject: subject
 }
 
+var currentCalendarDate = moment(new Date()).format("YYYY-MM-DD");
+
+/*
+
+/***************Method to get the Primary Data**********************
+
+var teacherSchedule = getTeacherSchedule(locationId,currentCalendarDate,currentCalendarDate);
+var students = getStudentSession(locationId,currentCalendarDate,currentCalendarDate);
+var teacherAvailability = getTeacherAvailability(locationId,currentCalendarDate,currentCalendarDate);
+
+*/
 
 setTimeout(function(){
   var deliveryTypeList = [];

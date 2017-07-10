@@ -10,13 +10,13 @@ function SylvanCalendar(){
     this.convertedStudentObj = [];
 
     this.init = function(element){
-        wjQuery('#'+element).load(window.location.protocol +"//"+window.location.host+"/WidgetCalendar/index.html");    
         this.loadLibraries();
     }
     //Student pane and TA pane Functionality
     var sofExpanded = false;
     var taExpanded = false;
     this.loadMasterInformation = function(){
+        var self = this;
         var currentCalendarDate = this.calendar.fullCalendar('getDate');
         wjQuery('.headerDate').text(moment(currentCalendarDate).format('MM/DD/YYYY'));
         if(wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').length){
@@ -40,18 +40,17 @@ function SylvanCalendar(){
             else{
                 var indices = id.split('_');
                 var index = indices[1];
-                var filters = this.filters;
-                for(var i=0;i<filters[index].length;i++){
-                    if (filters[index][i].radio) {
-                        wjQuery('#'+id).append('<div class="option_'+filters[index][i].id+' option-header-container">'+
+                for(var i=0;i<self.filters[index].length;i++){
+                    if (self.filters[index][i].radio) {
+                        wjQuery('#'+id).append('<div class="option_'+self.filters[index][i].id+' option-header-container">'+
                         '<label class="cursor option-title">'+
-                            '<input type="radio" class="filterCheckBox" name="checkbox" value="'+filters[index][i].id+'">'+filters[index][i].name+
+                            '<input type="radio" class="filterCheckBox" name="checkbox" value="'+self.filters[index][i].id+'">'+self.filters[index][i].name+
                         '</label>'+
                     '</div>');
                     }else{
-                        wjQuery('#'+id).append('<div class="option_'+filters[index][i].id+' option-header-container">'+
+                        wjQuery('#'+id).append('<div class="option_'+self.filters[index][i].id+' option-header-container">'+
                         '<label class="cursor option-title">'+
-                            '<input type="checkbox" class="filterCheckBox" name="checkbox" value="'+filters[index][i].id+'">'+filters[index][i].name+
+                            '<input type="checkbox" class="filterCheckBox" name="checkbox" value="'+self.filters[index][i].id+'">'+self.filters[index][i].name+
                         '</label>'+
                     '</div>');
                     }
@@ -118,77 +117,7 @@ function SylvanCalendar(){
         });
     }
     this.loadLibraries = function(){
-        var css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/css/full-calendar/fullcalendar.css" 
-        });
-        css_link.appendTo('head');
-
-        css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/css/SylCalDef.css" 
-        });
-        css_link.appendTo('head'); 
-
-        css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/css/jquery/jquery-ui-1.8.23.css" 
-        });
-        css_link.appendTo('head'); 
-
-        css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/libraries/bootstrap/css/bootstrap.min.css" 
-        });
-        css_link.appendTo('head'); 
-
-        css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/css/common.css" 
-        });
-        css_link.appendTo('head');  
-
-        css_link = wjQuery("<link>", { 
-            rel: "stylesheet", 
-            type: "text/css", 
-            href: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/css/style.css" 
-        });
-        css_link.appendTo('head'); 
-
-        css_link = wjQuery("<script>", { 
-            type: "text/javascript", 
-            src: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/libraries/bootstrap/js/bootstrap.min.js" 
-        });     
-        css_link.appendTo('head');
-
-        css_link = wjQuery("<script>", { 
-            type: "text/javascript", 
-            src: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/js/moment/moment.min.js" 
-        });     
-        css_link.appendTo('head');    
-
-        css_link = wjQuery("<script>", { 
-            type: "text/javascript", 
-            src: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/js/jQuery/jquery-ui-1.8.23.min.js"
-        });     
-        css_link.appendTo('head'); 
-
-        css_link = wjQuery("<script>", { 
-            type: "text/javascript", 
-            src: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/js/jQuery/jquery-timepicker-1.3.5.min.js"
-        });     
-        css_link.appendTo('head');    
-
-        css_link = wjQuery("<script>", { 
-            type: "text/javascript", 
-            src: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/js/full-calendar/fullcalendar.js" 
-        });     
-        css_link.appendTo('head');
+ 
     }
 
     this.populateLocation = function(args){
