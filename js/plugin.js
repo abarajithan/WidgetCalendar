@@ -25,11 +25,13 @@ function SylvanCalendar(){
             wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').css('text-align','center');
             wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').html(dayOfWeek +" <br/> "+ dayofMonth);
         }
-        wjQuery(".fc-agenda-divider.fc-widget-header").after("<div class='filter-section'></div>");
+        if(wjQuery('.filter-section').length == 0)
+            wjQuery(".fc-agenda-divider.fc-widget-header").after("<div class='filter-section'></div>");
+       
         this.calendarFilter();
         this.filterSlide(false);
 
-        wjQuery('.filter-header').click(function() { 
+        wjQuery('.filter-header').on('click',function() { 
             var id = wjQuery(this).parent().attr('id');
             let flag = wjQuery( "#"+id ).hasClass( "open" );
             if(flag){
