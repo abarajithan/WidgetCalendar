@@ -1,3 +1,120 @@
+var data = new Data();
+var filterObject = {
+    time: time,
+    student: data.getStudentSession(),
+    grade: data.getGrade(),
+    subject: data.getSubject()
+}
+var deliveryType = data.getDeliveryType();
+var currentCalendarDate = moment(new Date()).format("YYYY-MM-DD");
+setTimeout(function(){
+  var deliveryTypeList = [];
+    var sylvanCalendar = new SylvanCalendar();
+    sylvanCalendar.init("widget-calendar");
+    sylvanCalendar.generateFilterObject(filterObject);
+    setTimeout(function(){
+        var locationId = sylvanCalendar.populateLocation(data.getLocation());
+    for (var i = 0; i < deliveryType.length; i++) {
+      switch(deliveryType[i]['hub_name']){
+        case 'Personal Instruction':
+          wjQuery('#pi-btn input').val(deliveryType[i]['hub_deliverytypeid']);
+          break;
+        case 'Group Facilitation':
+          wjQuery('#gf-btn input').val(deliveryType[i]['hub_deliverytypeid']);
+          break;
+        case 'Group Instruction':
+          wjQuery('#gi-btn input').val(deliveryType[i]['hub_deliverytypeid']);
+          break;
+      }
+    }
+    wjQuery(".loc-dropdown .dropdown-menu").on('click', 'li a', function(){
+        if(wjQuery(".loc-dropdown .btn:first-child").val() != wjQuery(this).attr('value-id')){
+          wjQuery(".loc-dropdown .btn:first-child").text(wjQuery(this).text());
+          wjQuery(".loc-dropdown .btn:first-child").val(wjQuery(this).attr('value-id'));
+          this.resourceList = [];
+          return fetchResources(wjQuery(this).attr('value-id'),deliveryTypeList);
+        }
+    });
+    function fetchResources(locationId,selectedDeliveryType){
+      var resourceList = [];
+      var teacherSchedule = data.getTeacherSchedule(locationId,currentCalendarDate,currentCalendarDate);
+      var students = data.getStudentSession(locationId,currentCalendarDate,currentCalendarDate);
+      var teacherAvailability = data.getTeacherAvailability(locationId,currentCalendarDate,currentCalendarDate);
+      var resources = data.getResources(locationId);
+      if(selectedDeliveryType.length == 0 || selectedDeliveryType.length == deliveryType.length){
+        resourceList = resources;
+      }
+      else{
+        for (var i = 0; i < selectedDeliveryType.length; i++) {
+          for(var j=0;j<resources.length;j++){
+            if(resources[j]['_hub_deliverytype_value'] == selectedDeliveryType[i]){
+              resourceList.push(resources[j]);
+            }      
+          }
+        }
+      }
+            sylvanCalendar.populateResource(resourceList);
+      if(resourceList.length){
+        sylvanCalendar.populateTeacherEvent(sylvanCalendar.generateEventObject(teacherSchedule, "teacherSchedule"));
+        sylvanCalendar.populateStudentEvent(sylvanCalendar.generateEventObject(student, "studentSession"));
+        wjQuery('.prevBtn').bind('click',function(){
+          sylvanCalendar.prev();
+          currentCalendarDate =  moment(moment(currentCalendarDate).format("YYYY-MM-DD")).subtract(1, 'days').format("YYYY-MM-DD");
+          teacherSchedule = data.getTeacherSchedule(locationId,currentCalendarDate,currentCalendarDate);
+          students = data.getStudentSession(locationId,currentCalendarDate,currentCalendarDate);
+          teacherAvailability = data.getTeacherAvailability(locationId,currentCalendarDate,currentCalendarDate);
+          sylvanCalendar.populateTeacherEvent(sylvanCalendar.generateEventObject(teacherSchedule, "teacherSchedule"));
+          sylvanCalendar.populateStudentEvent(sylvanCalendar.generateEventObject(student, "studentSession"));
+          sylvanCalendar.populateTAPane(teacherAvailability);
+        });
+        wjQuery('.nextBtn').bind('click',function(){
+          sylvanCalendar.next();
+          currentCalendarDate =  moment(moment(currentCalendarDate).format("YYYY-MM-DD")).add(1, 'days').format("YYYY-MM-DD");
+          teacherSchedule = data.getTeacherSchedule(locationId,currentCalendarDate,currentCalendarDate);
+          students = data.getStudentSession(locationId,currentCalendarDate,currentCalendarDate);
+          teacherAvailability = data.getTeacherAvailability(locationId,currentCalendarDate,currentCalendarDate);
+          sylvanCalendar.populateTeacherEvent(sylvanCalendar.generateEventObject(teacherSchedule, "teacherSchedule"));
+          sylvanCalendar.populateStudentEvent(sylvanCalendar.generateEventObject(student, "studentSession"));
+          sylvanCalendar.populateTAPane(teacherAvailability);
+        });
+        wjQuery('.wkView').click(function(){
+          sylvanCalendar.weekView();
+        });
+        wjQuery('.dayView').click(function(){
+          sylvanCalendar.dayView();
+        });
+        wjQuery('#addAppointment').on('click', function() {
+          sylvanCalendar.addAppointment();
+        });
+        wjQuery('.sof-btn,.sof-close-icon').click(function(){
+          sylvanCalendar.sofPane();
+        });
+        wjQuery('.ta-btn,.ta-close-icon').click(function(){
+          sylvanCalendar.taPane();
+        });
+        sylvanCalendar.populateTAPane(teacherAvailability);
+        wjQuery('.teacher-container').draggable({
+          revert: true,      
+          revertDuration: 0,
+          appendTo: 'body',
+          containment: 'window',
+          helper: 'clone'
+        });
+      }
+    }
+    wjQuery('.dtBtn').click(function() {
+      deliveryTypeList = [];
+      wjQuery.each(wjQuery('.dtBtn'), function(index,elm){
+        if(wjQuery(elm).is(':checked')){ 
+          deliveryTypeList.push(jQuery(elm).val());
+        }
+      });
+      fetchResources(locationId,deliveryTypeList);
+    });
+        fetchResources(locationId,deliveryTypeList);    
+    },200);
+},500);
+
 function SylvanCalendar(){
     this.resourceList = [];
     this.calendar = undefined;
@@ -24,6 +141,7 @@ function SylvanCalendar(){
             var dayofMonth = moment(currentCalendarDate).format('M/D');
             wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').css('text-align','center');
             wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').html(dayOfWeek +" <br/> "+ dayofMonth);
+            wjQuery('.fc-agenda-allday .fc-agenda-axis').text('');
         }
         if(wjQuery('.filter-section').length == 0)
             wjQuery(".fc-agenda-divider.fc-widget-header").after("<div class='filter-section'></div>");
@@ -471,6 +589,7 @@ function SylvanCalendar(){
             var dayOfWeek = moment(currentCalendarDate).format('dddd');
             var dayofMonth = moment(currentCalendarDate).format('M/D');
             wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').html(dayOfWeek +" <br/> "+ dayofMonth);
+            wjQuery('.fc-agenda-allday .fc-agenda-axis').text('');
         }
 
     this.next = function(){
@@ -480,6 +599,7 @@ function SylvanCalendar(){
         var dayOfWeek = moment(currentCalendarDate).format('dddd');
         var dayofMonth = moment(currentCalendarDate).format('M/D');
         wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').html(dayOfWeek +" <br/> "+ dayofMonth);
+        wjQuery('.fc-agenda-allday .fc-agenda-axis').text('');
     }
 
     this.weekView = function(){
@@ -493,6 +613,7 @@ function SylvanCalendar(){
                 wjQuery('.filter-section').remove();
             }
             this.calendar.fullCalendar('changeView','agendaWeek');
+            wjQuery('.fc-agenda-allday .fc-agenda-axis').text('');
             if(filterElement != undefined){
                 wjQuery(".fc-agenda-divider.fc-widget-header:visible").after(filterElement);
             }
@@ -506,32 +627,33 @@ function SylvanCalendar(){
 
     this.dayView = function(){
         var filterElement = undefined;
-        if(this.calendar.fullCalendar('getView').name != 'resourceDay'){
+        var self = this;
+        if(self.calendar.fullCalendar('getView').name != 'resourceDay'){
             var isFilterOpen = false;
             if(wjQuery('.filter-section').length){
                 isFilterOpen = wjQuery('.filter-section').css("marginLeft");
                 filterElement = wjQuery('.filter-section');
                 wjQuery('.filter-section').remove();
             }
-            this.calendar.fullCalendar('changeView','resourceDay');
+            self.calendar.fullCalendar('changeView','resourceDay');
             setTimeout(function(){
-                var currentCalendarDate = this.calendar.fullCalendar('getDate');
+                var currentCalendarDate = self.calendar.fullCalendar('getDate');
                 wjQuery('.headerDate').text(moment(currentCalendarDate).format('MM/DD/YYYY'));
                 var dayOfWeek = moment(currentCalendarDate).format('dddd');
                 var dayofMonth = moment(currentCalendarDate).format('M/D');
                 wjQuery('thead .fc-agenda-axis.fc-widget-header.fc-first').html(dayOfWeek +" <br/> "+ dayofMonth);
+                wjQuery('.fc-agenda-allday .fc-agenda-axis').text('');
             },500); 
             if(filterElement != undefined){
                 wjQuery(".fc-agenda-divider.fc-widget-header:visible").after(filterElement);
             }
             else{
                 wjQuery(".fc-agenda-divider.fc-widget-header:visible").after("<div class='filter-section'></div>");
-                this.calendarFilter();
+                self.calendarFilter();
             }
-            this.filterSlide(wjQuery,isFilterOpen == '0px');
+            self.filterSlide(wjQuery,isFilterOpen == '0px');
         }
     }
-
 
     this.addAppointment = function(){
         wjQuery("#appointmentModal").dialog({

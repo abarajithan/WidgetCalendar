@@ -356,13 +356,13 @@ var teacherSchedule = [
       "hub_staff_scheduleid": "94c89f23-2250-e711-80f1-c4346bacfbbc",
       "hub_end_time@OData.Community.Display.V1.FormattedValue": "11:00 AM",
       "hub_end_time": 660,
-      "hub_end_date@OData.Community.Display.V1.FormattedValue": "07/11/2017",
+      "hub_end_date@OData.Community.Display.V1.FormattedValue": "07/10/2017",
       "hub_end_date": "2017-06-13",
       "hub_start_time@OData.Community.Display.V1.FormattedValue": "10:00 AM",
       "hub_start_time": 600,
-      "hub_start_date@OData.Community.Display.V1.FormattedValue": "07/11/2017",
+      "hub_start_date@OData.Community.Display.V1.FormattedValue": "07/10/2017",
       "hub_start_date": "2017-06-13",
-      "hub_date@OData.Community.Display.V1.FormattedValue": "07/11/2017",
+      "hub_date@OData.Community.Display.V1.FormattedValue": "07/10/2017",
       "hub_date": "2017-06-13",
       "aa_x002e_hub_center@OData.Community.Display.V1.FormattedValue": "Bel Air Learning Center",
       "_hub_resourceid_value": "9665d732-7f56-e711-80f1-c4346bad526c",
@@ -594,117 +594,40 @@ var teacherAvailability =
   ];
 
 
-var filterObject = {
-	// location: centerAvailable,
-	time: time,
-	// deliveryType: deliveryType,
-	student: student,
-	grade: grade,
-	subject: subject
+function Data(){
+
+  this.getResources = function(id){
+    return resources;
+  }
+
+  this.getLocation = function(){
+    return locations;
+  }
+
+  this.getGrade = function(){
+    return grade;
+  }
+
+  this.getStudentSession = function(locationId,startDate,endDate){
+    return student;
+  }
+
+  this.getSubject = function(){
+    return subject;
+  }
+
+  this.getDeliveryType = function(){
+    return deliveryType;
+  }
+
+  this.getTeacherSchedule = function(locationId,startDate,endDate){
+    return teacherSchedule;
+  }
+
+  this.getTeacherAvailability = function(locationId,startDate,endDate){
+    return teacherAvailability;
+  }
 }
-
-var currentCalendarDate = moment(new Date()).format("YYYY-MM-DD");
-
-/*
-
-/***************Method to get the Primary Data**********************
-
-var teacherSchedule = getTeacherSchedule(locationId,currentCalendarDate,currentCalendarDate);
-var students = getStudentSession(locationId,currentCalendarDate,currentCalendarDate);
-var teacherAvailability = getTeacherAvailability(locationId,currentCalendarDate,currentCalendarDate);
-
-*/
-
-setTimeout(function(){
-  var deliveryTypeList = [];
-	var sylvanCalendar = new SylvanCalendar();
-	sylvanCalendar.init("widget-calendar");
-	sylvanCalendar.generateFilterObject(filterObject);
-	setTimeout(function(){
-		var locationId = sylvanCalendar.populateLocation(locations);
-    for (var i = 0; i < deliveryType.length; i++) {
-      switch(deliveryType[i]['hub_name']){
-        case 'Personal Instruction':
-          wjQuery('#pi-btn input').val(deliveryType[i]['hub_deliverytypeid']);
-          break;
-        case 'Group Facilitation':
-          wjQuery('#gf-btn input').val(deliveryType[i]['hub_deliverytypeid']);
-          break;
-        case 'Group Instruction':
-          wjQuery('#gi-btn input').val(deliveryType[i]['hub_deliverytypeid']);
-          break;
-      }
-    }
-    wjQuery(".loc-dropdown .dropdown-menu").on('click', 'li a', function(){
-        if(wjQuery(".loc-dropdown .btn:first-child").val() != wjQuery(this).attr('value-id')){
-          wjQuery(".loc-dropdown .btn:first-child").text(wjQuery(this).text());
-          wjQuery(".loc-dropdown .btn:first-child").val(wjQuery(this).attr('value-id'));
-          this.resourceList = [];
-          return fetchResources(wjQuery(this).attr('value-id'),deliveryTypeList);
-        }
-    });
-		function fetchResources(locationId,selectedDeliveryType){
-      var resourceList = [];
-      
-      if(selectedDeliveryType.length == 0 || selectedDeliveryType.length == deliveryType.length){
-        resourceList = resources;
-      }
-      else{
-        for (var i = 0; i < selectedDeliveryType.length; i++) {
-          for(var j=0;j<resources.length;j++){
-            if(resources[j]['_hub_deliverytype_value'] == selectedDeliveryType[i]){
-              resourceList.push(resources[j]);
-            }      
-          }
-        }
-      }
-			sylvanCalendar.populateResource(resourceList);
-      if(resourceList.length){
-        sylvanCalendar.populateTeacherEvent(sylvanCalendar.generateEventObject(teacherSchedule, "teacherSchedule"));
-        sylvanCalendar.populateStudentEvent(sylvanCalendar.generateEventObject(student, "studentSession"));
-        wjQuery('.prevBtn').bind('click',function(){
-          sylvanCalendar.prev();
-        });
-        wjQuery('.nextBtn').bind('click',function(){
-          sylvanCalendar.next();
-        });
-        wjQuery('.wkView').click(function(){
-          sylvanCalendar.weekView();
-        });
-        wjQuery('.dayView').click(function(){
-          sylvanCalendar.dayView();
-        });
-        wjQuery('#addAppointment').on('click', function() {
-          sylvanCalendar.addAppointment();
-        });
-        wjQuery('.sof-btn,.sof-close-icon').click(function(){
-          sylvanCalendar.sofPane();
-        });
-        wjQuery('.ta-btn,.ta-close-icon').click(function(){
-          sylvanCalendar.taPane();
-        });
-        sylvanCalendar.populateTAPane(teacherAvailability);
-        wjQuery('.teacher-container').draggable({
-          revert: true,      
-          revertDuration: 0,
-          appendTo: 'body',
-          containment: 'window',
-          helper: 'clone'
-        });
-      }
-    }
-    wjQuery('.dtBtn').click(function() {
-      deliveryTypeList = [];
-      wjQuery.each(wjQuery('.dtBtn'), function(index,elm){
-        if(wjQuery(elm).is(':checked')){ 
-          deliveryTypeList.push(jQuery(elm).val());
-        }
-      });
-      fetchResources(locationId,deliveryTypeList);
-    });
-		fetchResources(locationId,deliveryTypeList);	
-	},200);
-},500);
 
 
 
