@@ -60,19 +60,40 @@ function SylvanCalendar(){
                 }
                 wjQuery('#'+id).addClass('open');
                 wjQuery( "#"+id ).find('.filter-nav-icon').addClass('open');
+
+                // filter functionality
                 var checkedList = [];
-                var calendar = this.calendar;
                 wjQuery(".filterCheckBox").click(function() {
-                    if(wjQuery(".filterCheckBox").is(':checked')){
+                   if(wjQuery(this).is(':checked')){
+                         self.eventList = [];
+                        self.calendar.fullCalendar( 'removeEvents');
                         checkedList.push(wjQuery(this).val()); 
-                        console.log(self.filterItems(self.convertedStudentObj, wjQuery(this).val()));
+                         self.calendar.fullCalendar('refetchEvents');
+                       self.populateTeacherEvent(self.convertedTeacherObj, true);
+                        if(checkedList.length  == 0){
+                            self.populateStudentEvent(self.convertedStudentObj, true);
+                        }else{
+                            var newArray = [];
+                            wjQuery.each(checkedList, function(k, v){
+                                newArray = wjQuery.merge(self.filterItems(self.convertedStudentObj, v), newArray);
+                            });
+                            self.populateStudentEvent(newArray, true);
+                        }
+                     }else{
                         self.eventList = [];
+                        self.calendar.fullCalendar( 'removeEvents');
+                        checkedList.splice(checkedList.indexOf(wjQuery(this).val()), 1);
                         self.calendar.fullCalendar('refetchEvents');
-                        // self.populateTeacherEvent(self.convertedTeacherObj);
-                        // self.populateStudentEvent(self.filterItems(self.convertedStudentObj, wjQuery(this).val()));
-                    }else{
-                        //console.log(self.convertedTeacherObj);
-                        //console.log(self.convertedStudentObj);
+                        self.populateTeacherEvent(self.convertedTeacherObj, true);
+                        if(checkedList.length == 0){
+                            self.populateStudentEvent(self.convertedStudentObj, true);
+                        }else{
+                            var newArray = [];
+                            wjQuery.each(checkedList, function(k, v){
+                                newArray = wjQuery.merge(self.filterItems(self.convertedStudentObj, v), newArray);
+                            });
+                            self.populateStudentEvent(newArray, true);
+                        }
                     }
                 });
             }
@@ -81,42 +102,6 @@ function SylvanCalendar(){
         wjQuery('.ta-pane').css('height',wjQuery('#calendar').height() - 10 +"px"); 
         wjQuery('.sof-pane').css('overflow-y','auto'); 
         wjQuery('.ta-pane').css('overflow-y','auto');
-
-        var checkedList = [];
-        var calendar = this.calendar;
-        wjQuery(".filterCheckBox").click(function() {
-           if(wjQuery(this).is(':checked')){
-                 self.eventList = [];
-                self.calendar.fullCalendar( 'removeEvents');
-                checkedList.push(wjQuery(this).val()); 
-                 self.calendar.fullCalendar('refetchEvents');
-               self.populateTeacherEvent(self.convertedTeacherObj, true);
-                if(checkedList.length  == 0){
-                    self.populateStudentEvent(self.convertedStudentObj, true);
-                }else{
-                    var newArray = [];
-                    wjQuery.each(checkedList, function(k, v){
-                        newArray = wjQuery.merge(self.filterItems(self.convertedStudentObj, v), newArray);
-                    });
-                    self.populateStudentEvent(newArray, true);
-                }
-             }else{
-                self.eventList = [];
-                self.calendar.fullCalendar( 'removeEvents');
-                checkedList.splice(checkedList.indexOf(wjQuery(this).val()), 1);
-                self.calendar.fullCalendar('refetchEvents');
-                self.populateTeacherEvent(self.convertedTeacherObj, true);
-                if(checkedList.length == 0){
-                    self.populateStudentEvent(self.convertedStudentObj, true);
-                }else{
-                    var newArray = [];
-                    wjQuery.each(checkedList, function(k, v){
-                        newArray = wjQuery.merge(self.filterItems(self.convertedStudentObj, v), newArray);
-                    });
-                    self.populateStudentEvent(newArray, true);
-                }
-            }
-        });
     }
     this.loadLibraries = function(){
  
