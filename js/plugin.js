@@ -406,7 +406,7 @@ function SylvanCalendar(){
         
 
         wjQuery('#datepicker').datepicker({
-            buttonImage: window.location.protocol +"//"+window.location.host+"/WidgetCalendar/images/calendar.png",
+            buttonImage: "images/calendar.png",
             buttonImageOnly: true,
             changeMonth: true,
             changeYear: true,
