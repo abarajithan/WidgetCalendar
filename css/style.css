@@ -233,3 +233,6 @@ div.ui-widget{
 .student-overflow,.teacher-availability{
     border: 1px solid #ccc;
 }
+.draggable{
+    z-index: 2;
+}
