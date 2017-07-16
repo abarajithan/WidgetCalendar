@@ -183,7 +183,7 @@ function SylvanCalendar(){
                 var checkedList = [];
                 wjQuery(".filterCheckBox").click(function() {
                    if(wjQuery(this).is(':checked')){
-                         self.eventList = [];
+                        self.eventList = [];
                         self.calendar.fullCalendar( 'removeEvents');
                         checkedList.push(wjQuery(this).val()); 
                          self.calendar.fullCalendar('refetchEvents');
